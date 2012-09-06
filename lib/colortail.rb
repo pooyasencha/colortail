@@ -49,6 +49,7 @@ module ColorTail
                 if message =~ filter[:match]
                         color = filter[:color]
                         attribute = filter[:attribute]
+                        message = message.strip if filter[:strip]
                         message = filter[:prepend] + message unless filter[:prepend].nil?
                         break
                 end
@@ -69,7 +70,7 @@ module ColorTail
     
         def colorit(message, color, attribute, nl = "\n")
             attribute = "#{attribute};" if attribute
-            "\e[#{attribute}#{color}m" + message.strip + "\e[0m#{nl}"
+            "\e[#{attribute}#{color}m" + message.gsub(/[\r\n]?$/, '') + "\e[0m#{nl}"
         end
 
         def add_color_matcher( options )
