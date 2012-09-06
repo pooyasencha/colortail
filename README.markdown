@@ -13,7 +13,7 @@ ColorTail provides a cool way for you to configure how logfiles (or any other fi
 
 By default, ColorTail does absolutely nothing other than just tail a file normally (similar to the trust old unix tool 'tail -f').  But what good what writing a gem be if it just mimiced existing functionality.
 
-## Conifguring ColorTail ##
+## Configuring ColorTail ##
 
 Configuring ColorTail is easy.  In your home directory, create a file .colortailrc.  This file will contain a group of ruby arrays similar to the ones laid out in the example config [examples/colortail.rb](https://github.com/elubow/colortail/blob/master/examples/colortail.rb).  These arrays are called groups.  Any group can be loaded via the command line using the **-g** switch (more on this below).
 
@@ -32,6 +32,7 @@ The full list of choices for colors and combinations are listed below.
  * magenta - (purple-ish)
  * cyan
  * light gray
+ * previous - This will use the color of the last line for this line too.
 
 #### Attributes ####
 
@@ -41,6 +42,7 @@ The full list of choices for colors and combinations are listed below.
  * blink
  * reverse
  * hidden - simply don't show the text
+ * previous - This will use the attribute of the last line for this line too.
 
 #### Additional Colors ####
 
@@ -54,6 +56,11 @@ To get the additional colorset listed below, use the **bright** attribute.
  * light purple (bright purle)
  * yellow (bright brown)
  * white (bright light gray)
+
+#### Additional properties ####
+
+ * prepend - prepend the line with string
+ * strip - strip line spaces
 
 ### Configuration Example ###
 
