@@ -31,11 +31,15 @@ module ColorTail
         }
     
         attr_accessor :color_matchers
+        attr_accessor :previous_color
+        attr_accessor :previous_attribute
 
         def initialize()
             # This is an instance variable in case we tail
             # multiple files with different groupings
             @color_matchers = Array.new
+            @previous_color = :none
+            @previous_attribute = nil
         end
 
         def log(filename, message, line_prefix=nil)
@@ -47,8 +51,22 @@ module ColorTail
 
             @color_matchers.each do |filter|
                 if message =~ filter[:match]
-                        color = filter[:color]
-                        attribute = filter[:attribute]
+                        # color
+                        if filter[:color] == :previous
+                            color = @previous_color
+                        else
+                            color = filter[:color]
+                            @previous_color = color
+                        end
+
+                        #attribute
+                        if filter[:attribute] == :previous
+                            attribute = @previous_attribute
+                        else
+                            attribute = filter[:attribute]
+                            @previous_attribute = attribute
+                        end
+
                         message = message.strip if filter[:strip]
                         message = filter[:prepend] + message unless filter[:prepend].nil?
                         break
